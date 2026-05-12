@@ -320,6 +320,78 @@ body.wp-admin.block-editor-page .ofg-code-block.is-editor-preview .ofg-code-bloc
   background: rgba(255, 255, 255, 0.92);
 }
 
+html.theme-light .ofg-code-block[data-language='markup'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='markup'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='markup'] {
+  --ofg-code-language-glow: rgba(255, 112, 67, 0.18);
+  --ofg-code-language-bar: rgba(230, 81, 0, 0.72);
+  --ofg-code-language-pill: rgba(255, 112, 67, 0.14);
+  --ofg-code-language-pill-border: rgba(230, 81, 0, 0.3);
+}
+
+html.theme-light .ofg-code-block[data-language='css'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='css'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='css'] {
+  --ofg-code-language-glow: rgba(33, 150, 243, 0.18);
+  --ofg-code-language-bar: rgba(21, 101, 192, 0.72);
+  --ofg-code-language-pill: rgba(33, 150, 243, 0.14);
+  --ofg-code-language-pill-border: rgba(21, 101, 192, 0.28);
+}
+
+html.theme-light .ofg-code-block[data-language='javascript'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='javascript'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='javascript'] {
+  --ofg-code-language-glow: rgba(245, 158, 11, 0.2);
+  --ofg-code-language-bar: rgba(180, 83, 9, 0.72);
+  --ofg-code-language-pill: rgba(245, 158, 11, 0.16);
+  --ofg-code-language-pill-border: rgba(180, 83, 9, 0.3);
+}
+
+html.theme-light .ofg-code-block[data-language='php'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='php'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='php'] {
+  --ofg-code-language-glow: rgba(124, 77, 255, 0.2);
+  --ofg-code-language-bar: rgba(94, 53, 177, 0.72);
+  --ofg-code-language-pill: rgba(124, 77, 255, 0.15);
+  --ofg-code-language-pill-border: rgba(94, 53, 177, 0.3);
+}
+
+html.theme-light .ofg-code-block[data-language='json'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='json'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='json'] {
+  --ofg-code-language-glow: rgba(0, 150, 136, 0.18);
+  --ofg-code-language-bar: rgba(0, 121, 107, 0.72);
+  --ofg-code-language-pill: rgba(0, 150, 136, 0.14);
+  --ofg-code-language-pill-border: rgba(0, 121, 107, 0.28);
+}
+
+html.theme-light .ofg-code-block[data-language='bash'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='bash'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='bash'] {
+  --ofg-code-language-glow: rgba(46, 125, 50, 0.16);
+  --ofg-code-language-bar: rgba(27, 94, 32, 0.68);
+  --ofg-code-language-pill: rgba(46, 125, 50, 0.13);
+  --ofg-code-language-pill-border: rgba(27, 94, 32, 0.26);
+}
+
+html.theme-light .ofg-code-block[data-language='sql'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='sql'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='sql'] {
+  --ofg-code-language-glow: rgba(239, 83, 80, 0.18);
+  --ofg-code-language-bar: rgba(198, 40, 40, 0.7);
+  --ofg-code-language-pill: rgba(239, 83, 80, 0.14);
+  --ofg-code-language-pill-border: rgba(198, 40, 40, 0.28);
+}
+
+html.theme-light .ofg-code-block[data-language='plaintext'],
+body.wp-admin .editor-styles-wrapper .ofg-code-block[data-language='plaintext'],
+body.wp-admin.block-editor-page .ofg-code-block[data-language='plaintext'] {
+  --ofg-code-language-glow: rgba(100, 116, 139, 0.12);
+  --ofg-code-language-bar: rgba(100, 116, 139, 0.5);
+  --ofg-code-language-pill: rgba(100, 116, 139, 0.1);
+  --ofg-code-language-pill-border: rgba(100, 116, 139, 0.2);
+}
+
 @media (prefers-color-scheme: light) {
   :root:not(.theme-dark) .ofg-code-block {
     --ofg-code-bg: linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(244, 238, 229, 0.95));
@@ -334,6 +406,62 @@ body.wp-admin.block-editor-page .ofg-code-block.is-editor-preview .ofg-code-bloc
       radial-gradient(circle at top right, rgba(36, 48, 163, 0.08), transparent 28%),
       var(--ofg-code-bg);
     box-shadow: 0 18px 38px rgba(34, 36, 40, 0.1);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='markup'] {
+    --ofg-code-language-glow: rgba(255, 112, 67, 0.18);
+    --ofg-code-language-bar: rgba(230, 81, 0, 0.72);
+    --ofg-code-language-pill: rgba(255, 112, 67, 0.14);
+    --ofg-code-language-pill-border: rgba(230, 81, 0, 0.3);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='css'] {
+    --ofg-code-language-glow: rgba(33, 150, 243, 0.18);
+    --ofg-code-language-bar: rgba(21, 101, 192, 0.72);
+    --ofg-code-language-pill: rgba(33, 150, 243, 0.14);
+    --ofg-code-language-pill-border: rgba(21, 101, 192, 0.28);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='javascript'] {
+    --ofg-code-language-glow: rgba(245, 158, 11, 0.2);
+    --ofg-code-language-bar: rgba(180, 83, 9, 0.72);
+    --ofg-code-language-pill: rgba(245, 158, 11, 0.16);
+    --ofg-code-language-pill-border: rgba(180, 83, 9, 0.3);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='php'] {
+    --ofg-code-language-glow: rgba(124, 77, 255, 0.2);
+    --ofg-code-language-bar: rgba(94, 53, 177, 0.72);
+    --ofg-code-language-pill: rgba(124, 77, 255, 0.15);
+    --ofg-code-language-pill-border: rgba(94, 53, 177, 0.3);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='json'] {
+    --ofg-code-language-glow: rgba(0, 150, 136, 0.18);
+    --ofg-code-language-bar: rgba(0, 121, 107, 0.72);
+    --ofg-code-language-pill: rgba(0, 150, 136, 0.14);
+    --ofg-code-language-pill-border: rgba(0, 121, 107, 0.28);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='bash'] {
+    --ofg-code-language-glow: rgba(46, 125, 50, 0.16);
+    --ofg-code-language-bar: rgba(27, 94, 32, 0.68);
+    --ofg-code-language-pill: rgba(46, 125, 50, 0.13);
+    --ofg-code-language-pill-border: rgba(27, 94, 32, 0.26);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='sql'] {
+    --ofg-code-language-glow: rgba(239, 83, 80, 0.18);
+    --ofg-code-language-bar: rgba(198, 40, 40, 0.7);
+    --ofg-code-language-pill: rgba(239, 83, 80, 0.14);
+    --ofg-code-language-pill-border: rgba(198, 40, 40, 0.28);
+  }
+
+  :root:not(.theme-dark) .ofg-code-block[data-language='plaintext'] {
+    --ofg-code-language-glow: rgba(100, 116, 139, 0.12);
+    --ofg-code-language-bar: rgba(100, 116, 139, 0.5);
+    --ofg-code-language-pill: rgba(100, 116, 139, 0.1);
+    --ofg-code-language-pill-border: rgba(100, 116, 139, 0.2);
   }
 }
 

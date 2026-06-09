@@ -1,6 +1,10 @@
 (function ($) {
+  var __ = window.wp && window.wp.i18n ? window.wp.i18n.__ : function (text) {
+    return text;
+  };
+
   function buildShortcode(language) {
-    return '[ofg_code language="' + language + '"]\n<!-- your code here -->\n[/ofg_code]';
+    return '[ofg_code language="' + language + '"]\n<!-- ' + __('your code here', 'ofg-code-editor') + ' -->\n[/ofg_code]';
   }
 
   function insertIntoEditor(editorId, content) {
@@ -30,13 +34,14 @@
     event.preventDefault();
 
     var editorId = $(this).data('editor') || 'content';
-    var language = window.prompt('Enter a language slug: html, css, javascript, php, json, bash, sql', 'markup');
+    var language = window.prompt(__('Enter a language slug: html, css, javascript, php, json, bash, sql', 'ofg-code-editor'), 'markup');
 
     if (language === null) {
       return;
     }
 
     language = $.trim(language).toLowerCase() || 'plaintext';
+    language = language.replace(/[^a-z0-9_-]/g, '');
 
     if (language === 'html') {
       language = 'markup';

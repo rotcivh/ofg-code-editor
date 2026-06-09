@@ -7,6 +7,7 @@
  * Author: ofoghweb.com
  * Author URI: https://ofoghweb.com
  * Text Domain: ofg-code-editor
+ * Domain Path: /languages
  * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.8
@@ -32,6 +33,16 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 			add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' ) );
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_assets' ) );
 			add_action( 'media_buttons', array( __CLASS__, 'render_classic_editor_button' ) );
+			add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
+		}
+
+		/**
+		 * Loads plugin translations.
+		 *
+		 * @return void
+		 */
+		public static function load_textdomain() {
+			load_plugin_textdomain( 'ofg-code-editor', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/**
@@ -48,7 +59,7 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 				'json'       => 'JSON',
 				'bash'       => 'Bash',
 				'sql'        => 'SQL',
-				'plaintext'  => 'Text',
+				'plaintext'  => __( 'Text', 'ofg-code-editor' ),
 			);
 		}
 
@@ -104,6 +115,8 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 				self::asset_version( 'assets/js/ofg-code-editor-block.js' ),
 				true
 			);
+
+			self::set_script_translations( 'ofg-code-editor-block' );
 		}
 
 		/**
@@ -120,10 +133,23 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 			wp_enqueue_script(
 				'ofg-code-editor-admin',
 				plugin_dir_url( __FILE__ ) . 'assets/js/ofg-code-editor-admin.js',
-				array( 'jquery' ),
+				array( 'jquery', 'wp-i18n' ),
 				self::asset_version( 'assets/js/ofg-code-editor-admin.js' ),
 				true
 			);
+
+			self::set_script_translations( 'ofg-code-editor-admin' );
+		}
+
+		/**
+		 * Registers translation files for JavaScript assets.
+		 *
+		 * @return void
+		 */
+		private static function set_script_translations( $handle ) {
+			if ( function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations( $handle, 'ofg-code-editor', plugin_dir_path( __FILE__ ) . 'languages' );
+			}
 		}
 
 		/**
@@ -137,7 +163,7 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 				return;
 			}
 
-			echo '<button type="button" class="button ofg-insert-code-shortcode" data-editor="' . esc_attr( $editor_id ) . '">OFG Code</button>';
+			echo '<button type="button" class="button ofg-insert-code-shortcode" data-editor="' . esc_attr( $editor_id ) . '">' . esc_html__( 'OFG Code', 'ofg-code-editor' ) . '</button>';
 		}
 
 		/**
@@ -161,7 +187,7 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 			return self::render_code_box(
 				$content,
 				array(
-					'language' => $atts['language'],
+					'language' => sanitize_key( $atts['language'] ),
 				)
 			);
 		}
@@ -194,7 +220,7 @@ if ( ! class_exists( 'OFG_Code_Editor' ) ) {
 			?>
 			<div class="ofg-code-block" data-language="<?php echo esc_attr( $language ); ?>">
 				<div class="ofg-code-block__header">
-					<span class="ofg-code-block__title"><?php echo esc_html( 'OFG Code Editor Plugin' ); ?></span>
+					<span class="ofg-code-block__title"><?php echo esc_html__( 'OFG Code Editor Plugin', 'ofg-code-editor' ); ?></span>
 					<span class="ofg-code-block__language"><?php echo esc_html( $language_label ); ?></span>
 					<button
 						type="button"

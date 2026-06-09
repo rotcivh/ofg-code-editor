@@ -1,0 +1,51 @@
+# Copyright (C) 2026 ofoghweb.com
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: OFG Code Editor 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ofg-code-editor\n"
+"POT-Creation-Date: 2026-06-09 00:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: GapCode\n"
+"X-Domain: ofg-code-editor\n"
+
+msgid "Text"
+msgstr ""
+
+msgid "OFG Code"
+msgstr ""
+
+msgid "OFG Code Editor Plugin"
+msgstr ""
+
+msgid "Copy code"
+msgstr ""
+
+msgid "Copied"
+msgstr ""
+
+msgid "your code here"
+msgstr ""
+
+msgid "Enter a language slug: html, css, javascript, php, json, bash, sql"
+msgstr ""
+
+msgid "OFG Code Editor"
+msgstr ""
+
+msgid "Display formatted code with a title, line numbers and copy action."
+msgstr ""
+
+msgid "Code box settings"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Paste HTML, CSS, JavaScript, PHP or any other code here…"
+msgstr ""
+
+msgid "Custom code"
+msgstr ""

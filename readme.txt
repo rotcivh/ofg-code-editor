@@ -2,7 +2,7 @@
 Contributors: ofoghweb
 Tags: code, shortcode, gutenberg, syntax, editor
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -37,6 +37,11 @@ Use `[ofg_code]` for new content. The plugin also supports `[ofogh_code]` as a c
 = Can I change the visible label? =
 
 The plugin uses a fixed header label: OFG Code Editor Plugin.
+
+== Screenshots ==
+
+1. Frontend code block with line numbers and copy support.
+2. Gutenberg editor preview and language selector.
 
 == Changelog ==
 

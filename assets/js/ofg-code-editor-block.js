@@ -15,7 +15,7 @@
     { label: 'JSON', value: 'json' },
     { label: 'Bash', value: 'bash' },
     { label: 'SQL', value: 'sql' },
-    { label: 'Text', value: 'plaintext' }
+    { label: __('Text', 'ofg-code-editor'), value: 'plaintext' }
   ];
 
   function renderLines(code) {
@@ -64,7 +64,7 @@
         ),
         el('div', { className: 'ofg-code-block is-editor-preview', 'data-language': attributes.language || 'markup' },
           el('div', { className: 'ofg-code-block__header' },
-            el('span', { className: 'ofg-code-block__title' }, 'OFG Code Editor Plugin'),
+            el('span', { className: 'ofg-code-block__title' }, __('OFG Code Editor Plugin', 'ofg-code-editor')),
             el('span', { className: 'ofg-code-block__language' }, currentLanguage.label),
             el('button', { type: 'button', className: 'ofg-code-block__copy', disabled: true }, __('Copy code', 'ofg-code-editor'))
           ),
@@ -91,14 +91,14 @@
 
       return el('div', { className: 'ofg-code-block', 'data-language': attributes.language || 'markup' },
         el('div', { className: 'ofg-code-block__header' },
-          el('span', { className: 'ofg-code-block__title' }, 'OFG Code Editor Plugin'),
+          el('span', { className: 'ofg-code-block__title' }, __('OFG Code Editor Plugin', 'ofg-code-editor')),
           el('span', { className: 'ofg-code-block__language' }, currentLanguage.label),
           el('button', {
             type: 'button',
             className: 'ofg-code-block__copy',
-            'data-copy-label': 'Copy code',
-            'data-copied-label': 'Copied'
-          }, 'Copy code')
+            'data-copy-label': __('Copy code', 'ofg-code-editor'),
+            'data-copied-label': __('Copied', 'ofg-code-editor')
+          }, __('Copy code', 'ofg-code-editor'))
         ),
         el('div', { className: 'ofg-code-block__body' },
           el('ol', { className: 'ofg-code-block__lines' }, renderLines(attributes.code || ''))

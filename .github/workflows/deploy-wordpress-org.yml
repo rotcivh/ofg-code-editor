@@ -50,6 +50,52 @@ jobs:
           test -d "${BUILD_DIR}/assets"
           test -d ".wordpress-org"
 
+      - name: Ensure WordPress.org SVN directories exist
+        shell: bash
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${SVN_USERNAME}" ]]; then
+            echo "Set the SVN_USERNAME secret"
+            exit 1
+          fi
+
+          if [[ -z "${SVN_PASSWORD}" ]]; then
+            echo "Set the SVN_PASSWORD secret"
+            exit 1
+          fi
+
+          if ! command -v svn >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y subversion
+          fi
+
+          SVN_URL="https://plugins.svn.wordpress.org/ofg-code-editor"
+          SVN_INIT_DIR="${RUNNER_TEMP}/ofg-code-editor-svn-init"
+          rm -rf "${SVN_INIT_DIR}"
+
+          svn checkout --depth empty "${SVN_URL}" "${SVN_INIT_DIR}"
+          cd "${SVN_INIT_DIR}"
+
+          changed=0
+          for directory in trunk assets tags; do
+            if ! svn ls "${SVN_URL}/${directory}" >/dev/null 2>&1; then
+              svn mkdir "${directory}"
+              changed=1
+            fi
+          done
+
+          if [[ "${changed}" -eq 1 ]]; then
+            svn commit -m "Initialize plugin repository directories" \
+              --no-auth-cache \
+              --non-interactive \
+              --username "${SVN_USERNAME}" \
+              --password "${SVN_PASSWORD}"
+          fi
+
       - name: Deploy to WordPress.org SVN
         uses: 10up/action-wordpress-plugin-deploy@stable
         env:

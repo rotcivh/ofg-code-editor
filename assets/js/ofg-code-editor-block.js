@@ -20,13 +20,13 @@
 
   function renderLines(code) {
     return (code || '').replace(/\r\n?/g, '\n').split('\n').map(function (line, index) {
-      return el('li', { className: 'ofg-code-block__line', key: 'line-' + index },
-        el('span', { className: 'ofg-code-block__line-text' }, line === '' ? '\u00a0' : line)
+      return el('li', { className: 'ofgcodeeditor-code-block__line', key: 'line-' + index },
+        el('span', { className: 'ofgcodeeditor-code-block__line-text' }, line === '' ? '\u00a0' : line)
       );
     });
   }
 
-  blocks.registerBlockType('ofg-code-editor/code-block', {
+  blocks.registerBlockType('ofgcodeeditor/code-block', {
     apiVersion: 2,
     title: __('OFG Code Editor', 'ofg-code-editor'),
     description: __('Display formatted code with a title, line numbers and copy action.', 'ofg-code-editor'),
@@ -35,8 +35,7 @@
     attributes: {
       code: {
         type: 'string',
-        source: 'text',
-        selector: '.ofg-code-block__code-source'
+        default: ''
       },
       language: {
         type: 'string',
@@ -62,17 +61,17 @@
             })
           )
         ),
-        el('div', { className: 'ofg-code-block is-editor-preview', 'data-language': attributes.language || 'markup' },
-          el('div', { className: 'ofg-code-block__header' },
-            el('span', { className: 'ofg-code-block__title' }, __('OFG Code Editor Plugin', 'ofg-code-editor')),
-            el('span', { className: 'ofg-code-block__language' }, currentLanguage.label),
-            el('button', { type: 'button', className: 'ofg-code-block__copy', disabled: true }, __('Copy code', 'ofg-code-editor'))
+        el('div', { className: 'ofgcodeeditor-code-block is-editor-preview', 'data-language': attributes.language || 'markup' },
+          el('div', { className: 'ofgcodeeditor-code-block__header' },
+            el('span', { className: 'ofgcodeeditor-code-block__title' }, __('OFG Code Editor Plugin', 'ofg-code-editor')),
+            el('span', { className: 'ofgcodeeditor-code-block__language' }, currentLanguage.label),
+            el('button', { type: 'button', className: 'ofgcodeeditor-code-block__copy', disabled: true }, __('Copy code', 'ofg-code-editor'))
           ),
-          el('div', { className: 'ofg-code-block__body' },
-            el('ol', { className: 'ofg-code-block__lines' }, renderLines(attributes.code || ''))
+          el('div', { className: 'ofgcodeeditor-code-block__body' },
+            el('ol', { className: 'ofgcodeeditor-code-block__lines' }, renderLines(attributes.code || ''))
           ),
           el(PlainText, {
-            className: 'ofg-code-block__editor-input',
+            className: 'ofgcodeeditor-code-block__editor-input',
             value: attributes.code,
             onChange: function (value) {
               props.setAttributes({ code: value });
@@ -83,28 +82,8 @@
         )
       );
     },
-    save: function (props) {
-      var attributes = props.attributes;
-      var currentLanguage = languages.find(function (item) {
-        return item.value === attributes.language;
-      }) || languages[0];
-
-      return el('div', { className: 'ofg-code-block', 'data-language': attributes.language || 'markup' },
-        el('div', { className: 'ofg-code-block__header' },
-          el('span', { className: 'ofg-code-block__title' }, __('OFG Code Editor Plugin', 'ofg-code-editor')),
-          el('span', { className: 'ofg-code-block__language' }, currentLanguage.label),
-          el('button', {
-            type: 'button',
-            className: 'ofg-code-block__copy',
-            'data-copy-label': __('Copy code', 'ofg-code-editor'),
-            'data-copied-label': __('Copied', 'ofg-code-editor')
-          }, __('Copy code', 'ofg-code-editor'))
-        ),
-        el('div', { className: 'ofg-code-block__body' },
-          el('ol', { className: 'ofg-code-block__lines' }, renderLines(attributes.code || ''))
-        ),
-        el('pre', { className: 'ofg-code-block__code-source', hidden: true }, attributes.code || '')
-      );
+    save: function () {
+      return null;
     }
   });
 }(window.wp.blocks, window.wp.element, window.wp.blockEditor || window.wp.editor, window.wp.components, window.wp.i18n));

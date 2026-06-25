@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: OFG Code Editor 1.0.0\n"
+"Project-Id-Version: OFG Code Editor 1.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ofg-code-editor\n"
 "POT-Creation-Date: 2026-06-09 00:00+0000\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,6 @@ msgid "Copy code"
 msgstr ""
 
 msgid "Copied"
-msgstr ""
-
-msgid "your code here"
 msgstr ""
 
 msgid "Enter a language slug: html, css, javascript, php, json, bash, sql"

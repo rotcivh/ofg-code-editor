@@ -3,19 +3,40 @@
     return text;
   };
 
-  function buildShortcode(language) {
-    return '[ofg_code language="' + language + '"]\n<!-- ' + __('your code here', 'ofg-code-editor') + ' -->\n[/ofg_code]';
+  function buildShortcode(language, code) {
+    return '[ofgcodeeditor_code language="' + language + '"]' + code + '[/ofgcodeeditor_code]';
+  }
+
+  function getSelectedContent(editorId) {
+    var textarea = document.getElementById(editorId);
+
+    if (window.tinymce && window.tinymce.get(editorId) && !window.tinymce.get(editorId).isHidden()) {
+      return window.tinymce.get(editorId).selection.getContent({ format: 'html' }) || '';
+    }
+
+    if (textarea && typeof textarea.selectionStart === 'number' && typeof textarea.selectionEnd === 'number') {
+      return textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+    }
+
+    return '';
   }
 
   function insertIntoEditor(editorId, content) {
-    if (window.wp && window.wp.media && window.wp.media.editor && typeof window.wp.media.editor.insert === 'function') {
-      window.wpActiveEditor = editorId;
-      window.wp.media.editor.insert(content);
+    if (window.tinymce && window.tinymce.get(editorId) && !window.tinymce.get(editorId).isHidden()) {
+      window.tinymce.get(editorId).execCommand('mceInsertContent', false, content);
       return;
     }
 
-    if (window.tinymce && window.tinymce.get(editorId) && !window.tinymce.get(editorId).isHidden()) {
-      window.tinymce.get(editorId).execCommand('mceInsertContent', false, content);
+    var textarea = document.getElementById(editorId);
+
+    if (textarea && typeof textarea.selectionStart === 'number' && typeof textarea.selectionEnd === 'number') {
+      var start = textarea.selectionStart;
+      var end = textarea.selectionEnd;
+
+      textarea.value = textarea.value.substring(0, start) + content + textarea.value.substring(end);
+      textarea.selectionStart = start + content.length;
+      textarea.selectionEnd = textarea.selectionStart;
+      textarea.focus();
       return;
     }
 
@@ -24,13 +45,18 @@
       return;
     }
 
-    var textarea = document.getElementById(editorId);
+    if (window.wp && window.wp.media && window.wp.media.editor && typeof window.wp.media.editor.insert === 'function') {
+      window.wpActiveEditor = editorId;
+      window.wp.media.editor.insert(content);
+      return;
+    }
+
     if (textarea) {
       textarea.value += content;
     }
   }
 
-  $(document).on('click', '.ofg-insert-code-shortcode', function (event) {
+  $(document).on('click', '.ofgcodeeditor-insert-code-shortcode', function (event) {
     event.preventDefault();
 
     var editorId = $(this).data('editor') || 'content';
@@ -47,6 +73,6 @@
       language = 'markup';
     }
 
-    insertIntoEditor(editorId, buildShortcode(language));
+    insertIntoEditor(editorId, buildShortcode(language, getSelectedContent(editorId)));
   });
 }(jQuery));

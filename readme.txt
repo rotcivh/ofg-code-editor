@@ -1,10 +1,10 @@
 === OFG Code Editor ===
-Contributors: ofoghweb
+Contributors: weblogbaz
 Tags: code, shortcode, gutenberg, syntax, editor
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Features:
 
 * Gutenberg block for formatted code output.
 * Classic editor button for inserting the shortcode template.
-* Shortcode support via `[ofg_code]` and `[ofogh_code]`.
+* Shortcode support via `[ofgcodeeditor_code]`.
 * Copy button and line numbers on the frontend.
 * Responsive code box layout with light and dark friendly styling.
 
@@ -32,7 +32,7 @@ Features:
 
 = Which shortcode should I use? =
 
-Use `[ofg_code]` for new content. The plugin also supports `[ofogh_code]` as a compatibility alias.
+Use `[ofgcodeeditor_code language="html"]...[/ofgcodeeditor_code]`.
 
 = Can I change the visible label? =
 
@@ -44,6 +44,17 @@ The plugin uses a fixed header label: OFG Code Editor Plugin.
 2. Gutenberg editor preview and language selector.
 
 == Changelog ==
+
+= 1.0.3 =
+* Updated plugin tested version metadata.
+
+= 1.0.2 =
+* Updated plugin metadata for WordPress.org review.
+* Removed the legacy generic shortcode alias.
+* Removed the unnecessary wrapper around the plugin class.
+
+= 1.0.1 =
+* Removed manual textdomain loading.
 
 = 1.0.0 =
 * Initial release.

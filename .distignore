@@ -1,0 +1,8 @@
+/.git
+/.github
+/.wordpress-org
+/New Folder With Items
+
+.DS_Store
+.distignore
+.gitignore

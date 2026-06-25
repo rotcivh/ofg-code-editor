@@ -76,7 +76,7 @@
       if (typeof inner === 'string' && typeof suffix === 'undefined' && typeof prefix === 'string' && match !== prefix) {
         var tokenIndex = tokens.length;
         tokens.push({ className: className, value: escapeHtml(inner) });
-        return prefix + '___OFGTOKEN_' + tokenIndex + '___';
+        return prefix + '___OFGCODEEDITOR_TOKEN_' + tokenIndex + '___';
       }
 
       var tokenValue = match;
@@ -85,14 +85,14 @@
       }
       var markerIndex = tokens.length;
       tokens.push({ className: className, value: escapeHtml(tokenValue) });
-      return '___OFGTOKEN_' + markerIndex + '___';
+      return '___OFGCODEEDITOR_TOKEN_' + markerIndex + '___';
     });
   }
 
   function restoreTokens(source, tokens) {
-    return source.replace(/___OFGTOKEN_(\d+)___/g, function (_, index) {
+    return source.replace(/___OFGCODEEDITOR_TOKEN_(\d+)___/g, function (_, index) {
       var token = tokens[Number(index)];
-      return token ? '<span class="ofg-code-token ofg-code-token--' + token.className + '">' + token.value + '</span>' : _;
+      return token ? '<span class="ofgcodeeditor-code-token ofgcodeeditor-code-token--' + token.className + '">' + token.value + '</span>' : _;
     });
   }
 
@@ -111,7 +111,7 @@
       var tokenIndex = tokens.length;
       tokens.push({ className: className, value: value });
 
-      return prefix + '___OFGTOKEN_' + tokenIndex + '___';
+      return prefix + '___OFGCODEEDITOR_TOKEN_' + tokenIndex + '___';
     });
   }
 
@@ -144,13 +144,13 @@
   }
 
   function readCode(block) {
-    var source = block.querySelector('.ofg-code-block__code-source');
+    var source = block.querySelector('.ofgcodeeditor-code-block__code-source');
 
     if (source) {
       return source.textContent || '';
     }
 
-    var lines = block.querySelectorAll('.ofg-code-block__line-text');
+    var lines = block.querySelectorAll('.ofgcodeeditor-code-block__line-text');
 
     return Array.prototype.map.call(lines, function (line) {
       var value = line.textContent || '';
@@ -161,7 +161,7 @@
   function renderHighlightedCode(block) {
     var language = normalizeLanguage(block.getAttribute('data-language'));
     var code = readCode(block);
-    var lines = block.querySelectorAll('.ofg-code-block__line-text');
+    var lines = block.querySelectorAll('.ofgcodeeditor-code-block__line-text');
     var highlightedLines = highlightCode(code, language).split('\n');
 
     Array.prototype.forEach.call(lines, function (line, index) {
@@ -193,7 +193,7 @@
   }
 
   function initHighlights() {
-    var blocks = document.querySelectorAll('.ofg-code-block');
+    var blocks = document.querySelectorAll('.ofgcodeeditor-code-block');
 
     Array.prototype.forEach.call(blocks, function (block) {
       renderHighlightedCode(block);
@@ -201,7 +201,7 @@
   }
 
   document.addEventListener('click', function (event) {
-    var button = event.target.closest('.ofg-code-block__copy');
+    var button = event.target.closest('.ofgcodeeditor-code-block__copy');
 
     if (!button) {
       return;
@@ -209,7 +209,7 @@
 
     event.preventDefault();
 
-    var block = button.closest('.ofg-code-block');
+    var block = button.closest('.ofgcodeeditor-code-block');
     if (!block) {
       return;
     }

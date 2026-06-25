@@ -1,0 +1,60 @@
+name: Deploy to WordPress.org SVN
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy plugin tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare plugin build directory
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          BUILD_DIR="${RUNNER_TEMP}/ofg-code-editor-build"
+          rm -rf "${BUILD_DIR}"
+          mkdir -p "${BUILD_DIR}"
+
+          rsync -a ./ "${BUILD_DIR}/" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.DS_Store' \
+            --exclude='.wordpress-org' \
+            --exclude='New Folder With Items'
+
+          echo "BUILD_DIR=${BUILD_DIR}" >> "${GITHUB_ENV}"
+
+      - name: Verify required plugin files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f "${BUILD_DIR}/OFG-Code-Editor.php"
+          test -f "${BUILD_DIR}/readme.txt"
+          test -d "${BUILD_DIR}/assets"
+          test -d ".wordpress-org"
+
+      - name: Deploy to WordPress.org SVN
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: ofg-code-editor
+          ASSETS_DIR: .wordpress-org
+          BUILD_DIR: ${{ env.BUILD_DIR }}
